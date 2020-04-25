@@ -1,0 +1,303 @@
+{
+  "intents": [
+    {
+      "intent": "greetings",
+      "examples": [
+        {
+          "text": "good evening"
+        },
+        {
+          "text": "hai"
+        },
+        {
+          "text": "hello"
+        },
+        {
+          "text": "good morning"
+        },
+        {
+          "text": "hola"
+        }
+      ],
+      "description": "welcome greetings"
+    },
+    {
+      "intent": "Plasma_Information",
+      "examples": [
+        {
+          "text": "Does plasma samples available?"
+        },
+        {
+          "text": "In which hospital does plasma available"
+        },
+        {
+          "text": "How many samples of plasma available?"
+        },
+        {
+          "text": "In which bloodbank plasma is available?"
+        },
+        {
+          "text": "111"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "avaliable",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "111",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Plasma_Information",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Name of the hospital",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Location of Hospital",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Name of bloodbank",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Location of bloodbank",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "webhooks": [
+    {
+      "url": "",
+      "name": "main_webhook",
+      "headers": []
+    }
+  ],
+  "dialog_nodes": [
+    {
+      "type": "response_condition",
+      "parent": "node_2_1587784812472",
+      "conditions": "$webhook_result_1",
+      "dialog_node": "response_9_1587808507096",
+      "previous_sibling": "response_5_1587808504797"
+    },
+    {
+      "type": "response_condition",
+      "parent": "node_2_1587784812472",
+      "conditions": "anything_else",
+      "dialog_node": "response_7_1587808508182",
+      "previous_sibling": "response_9_1587808507096"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hi welcome to plasma Collection How can i help you"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1587784812472",
+      "dialog_node": "response_5_1587808504797"
+    },
+    {
+      "type": "standard",
+      "title": "Plasma_Information",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "10 plasma samples available"
+              },
+              {
+                "text": "Gandhi Hospital "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Plasma_Information || @Plasma_Information",
+      "dialog_node": "node_8_1587776788785",
+      "previous_sibling": "node_4_1587777425125"
+    },
+    {
+      "type": "standard",
+      "title": "Plasma_Information",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Yes, 10 plasma samples available"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Plasma_Information || @Plasma_Information",
+      "dialog_node": "node_4_1587777425125",
+      "previous_sibling": "node_2_1587784812472"
+    },
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_8_1587776788785",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "welcome",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {},
+          "result_variable": "webhook_result_1"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "welcome || #greetings",
+      "dialog_node": "node_2_1587784812472",
+      "previous_sibling": "node_10_1587785422187"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "yes 12 Samples "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "",
+      "dialog_node": "node_10_1587785422187",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "Plasma_Information",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello. How can I help you?"
+              },
+              {
+                "text": "Welcome to plasma Collection Support"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "Plasma collection",
+            "options": [
+              {
+                "label": "Does plasma samples available?",
+                "value": {
+                  "input": {
+                    "text": "111"
+                  }
+                }
+              }
+            ],
+            "description": "Service",
+            "response_type": "option"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "Plasma Collection",
+  "language": "en",
+  "description": ""
+}
